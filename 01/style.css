@@ -1,0 +1,12 @@
+h1 {
+  background-color: pink;
+  max-width: 300px;
+  border: solid red 1px;
+  text-align: center;
+  color: blue;
+}
+
+h1 a {
+  text-decoration: none;
+}
+/*# sourceMappingURL=style.css.map */

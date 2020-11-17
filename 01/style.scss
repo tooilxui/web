@@ -1,0 +1,14 @@
+$text-color: blue;
+$h1-max-width: 300px;
+h1 {
+    background-color: pink;
+    max-width: $h1-max-width;
+    border: solid red 1px;
+    text-align: center;
+    color: $text-color;
+    a {
+        text-decoration: none;
+    }
+}
+
+// 用 Live Sass Compiler 自動產生相應的 *.css *.css.map
