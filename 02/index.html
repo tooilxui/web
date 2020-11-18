@@ -5,31 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 
 <body>
     <div id="app">
         <div>
-            <p>
-                <!-- v-model 雙向綁定資料, 加上trim後去掉頭尾空白 -->
-                <input type="text" v-model.trim="input">
-                <a href="javascript:;" v-on:click="createHandler">CREATE</a>
-            </p>
-            <ol>
-                <!-- 用for長多個li -->
-                <li v-for="(content,index) in contents">
-                    {{ content.content }}
-                    <a href="javascript:;">UPDATE</a>
-                    <a href="javascript:;" @click="deleteHandler(content.id)">DELETE</a>
-                </li>
-
-            </ol>
+            <div class="container">
+                <div class="row">
+                    <div class="input-group mb-2 col-6">
+                        <!-- v-model 雙向綁定資料, 加上trim後去掉頭尾空白 -->
+                        <input type="text" class="form-control" v-on:keyup.enter="createHandler" v-model.trim="input">
+                        <div class="input-group-append">
+                            <button v-on:click="createHandler" class="btn btn-outline-secondary"
+                                type="button">Button</button>
+                        </div>
+                    </div>
+                </div>
+                <ul v-for="(content,index) in contents" class="list-group">
+                    <div class="d-inline mb-2">
+                        <button class="btn btn-warning" type="button">UPDATE</button>
+                        <button class="btn btn-danger" type="button" @click="deleteHandler(index)">DELETE</button>
+                        <li class="d-inline">{{ content.content }}</li>
+                    </div>
+                </ul>
+            </div>
         </div>
     </div>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.1/vue-router.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/vuex/3.0.1/vuex.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js'></script>
+
     <script>
         new Vue({
             el: "#app",
@@ -48,9 +58,7 @@
                         this.contents.push(res.data)
                     })
                 },
-                // BUG: 殺到變成undefined
                 deleteHandler(index) {
-                    debugger
                     let target = this.contents[index]
                     axios.delete(`http://localhost:3000/contents/${target.id}`).then(res => {
                         this.input = ''
